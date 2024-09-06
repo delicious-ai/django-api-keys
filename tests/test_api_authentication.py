@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 
 from rest_framework.test import APIRequestFactory
 
-from django_api_keys.settings import package_settings
+from django_api_keys import package_settings
 
 from .fixtures.user import user
 from .fixtures.api_key import expired_api_key, active_api_key, revoked_api_key

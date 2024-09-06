@@ -5,7 +5,7 @@ from django.http.request import HttpRequest
 from django.utils import timezone
 
 from .models import Rotation
-from ..settings import package_settings
+from .. import package_settings
 
 
 class RotationAdmin(admin.ModelAdmin):

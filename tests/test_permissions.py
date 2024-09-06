@@ -12,7 +12,7 @@ from rest_framework.test import APIRequestFactory
 
 from django_api_keys.backends import APIKeyAuthentication
 from django_api_keys.permissions import IsActiveEntity
-from django_api_keys.settings import package_settings
+from django_api_keys import package_settings
 
 from .fixtures.api_key import inactive_entity_api_key, active_api_key
 from .fixtures.user import inactive_user, user

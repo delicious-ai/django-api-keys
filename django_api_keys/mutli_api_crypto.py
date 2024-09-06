@@ -1,7 +1,7 @@
 from cryptography.fernet import MultiFernet, Fernet
 
 from django_api_keys.crypto import BaseApiCrypto
-from django_api_keys.settings import package_settings
+from django_api_keys import package_settings
 
 
 class MultiApiCrypto(BaseApiCrypto):

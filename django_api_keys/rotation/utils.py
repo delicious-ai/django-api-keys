@@ -2,7 +2,7 @@ from django.core.cache import cache
 from django.apps import apps
 from django.utils import timezone
 
-from django_api_keys.settings import package_settings
+from django_api_keys import package_settings
 
 
 def get_rotation_status():

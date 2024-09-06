@@ -12,7 +12,7 @@ from django.conf import settings
 
 from django.utils.timezone import now
 
-from django_api_keys.settings import package_settings
+from django_api_keys import package_settings
 
 
 class BaseApiCrypto:

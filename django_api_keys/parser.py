@@ -3,7 +3,7 @@ import typing
 from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest
 
-from django_api_keys.settings import package_settings
+from django_api_keys import package_settings
 
 
 class APIKeyParser:

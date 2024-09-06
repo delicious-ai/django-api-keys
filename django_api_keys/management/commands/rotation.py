@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 
 from django_api_keys.rotation.models import Rotation
-from django_api_keys.settings import package_settings
+from django_api_keys import package_settings
 
 
 class Command(BaseCommand):
