@@ -43,7 +43,7 @@ Why should you use this package for your API Key authentication?
 1 - Install with `pip`:
 
 ```bash
-pip install drf-simple-apikey
+pip install django-api-keys
 ```
 
 2 - Register the app in the `INSTALLED_APPS` in the `settings.py` file:
@@ -53,8 +53,7 @@ pip install drf-simple-apikey
 
 INSTALLED_APPS = [
   # ...
-  "rest_framework",
-  "drf_simple_apikey",
+  "django_api_keys",
 ]
 ```
 
@@ -79,7 +78,7 @@ In your view then, you can add the authentication class and the permission class
 ```python
 from rest_framework import viewsets
 
-from drf_simple_apikey.backends import APIKeyAuthentication
+from django_api_keys.backends import APIKeyAuthentication
 from rest_framework.response import Response
 
 

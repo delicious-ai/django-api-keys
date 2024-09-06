@@ -5,11 +5,10 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ("drf_simple_apikey", "0002_alter_apikey_options"),
+        ("django_api_keys", "0002_alter_apikey_options"),
     ]
 
     operations = [
@@ -32,7 +31,7 @@ class Migration(migrations.Migration):
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="analytics",
-                        to="drf_simple_apikey.apikey",
+                        to="django_api_keys.apikey",
                     ),
                 ),
             ],

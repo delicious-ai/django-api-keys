@@ -7,8 +7,8 @@ from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.test import RequestFactory
 
-from drf_simple_apikey.admin import ApiKeyAdmin
-from drf_simple_apikey.models import APIKey
+from django_api_keys.admin import ApiKeyAdmin
+from django_api_keys.models import APIKey
 
 from .fixtures.user import user
 

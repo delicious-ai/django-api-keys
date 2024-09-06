@@ -1,9 +1,9 @@
 import typing
 
+from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest
-from rest_framework.exceptions import NotAuthenticated, AuthenticationFailed
 
-from drf_simple_apikey.settings import package_settings
+from django_api_keys.settings import package_settings
 
 
 class APIKeyParser:
@@ -22,12 +22,12 @@ class APIKeyParser:
         authorization = request.META.get("HTTP_AUTHORIZATION")
 
         if not authorization:
-            raise NotAuthenticated(self.message)
+            raise PermissionDenied(self.message)
 
         try:
             _, key = authorization.split(f"{self.keyword} ")
         except ValueError:
-            raise AuthenticationFailed("Incorrect API KEY format.")
+            raise PermissionDenied("Incorrect API KEY format.")
 
         return key
 

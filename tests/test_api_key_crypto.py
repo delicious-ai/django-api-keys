@@ -4,7 +4,7 @@ import pytest
 
 
 def key_crypto():
-    from drf_simple_apikey.crypto import get_crypto
+    from django_api_keys.crypto import get_crypto
 
     return get_crypto()
 

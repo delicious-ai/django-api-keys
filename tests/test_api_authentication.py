@@ -1,11 +1,11 @@
 import pytest
 
 from django.contrib.auth.models import User
-from rest_framework import exceptions
+from django.core.exceptions import PermissionDenied
 
 from rest_framework.test import APIRequestFactory
 
-from drf_simple_apikey.settings import package_settings
+from django_api_keys.settings import package_settings
 
 from .fixtures.user import user
 from .fixtures.api_key import expired_api_key, active_api_key, revoked_api_key
@@ -54,7 +54,7 @@ def valid_request(user, active_api_key):
 
 
 def api_key_authentication():
-    from drf_simple_apikey.backends import APIKeyAuthentication
+    from django_api_keys.backends import APIKeyAuthentication
 
     return APIKeyAuthentication()
 
@@ -75,7 +75,7 @@ class TestApiKeyAuthentication:
     def test_authenticate_invalid_request(self, invalid_request):
         entity = None
         with pytest.raises(
-            exceptions.NotAuthenticated,
+            PermissionDenied,
             match=r"No API key provided.",
         ):
             entity, _ = api_key_authentication().authenticate(invalid_request)
@@ -87,7 +87,7 @@ class TestApiKeyAuthentication:
     ):
         entity = None
         with pytest.raises(
-            exceptions.AuthenticationFailed,
+            PermissionDenied,
             match=r"API Key has already expired.",
         ):
             entity, _ = api_key_authentication().authenticate(
@@ -101,7 +101,7 @@ class TestApiKeyAuthentication:
     ):
         entity = None
         with pytest.raises(
-            exceptions.AuthenticationFailed,
+            PermissionDenied,
             match=r"This API Key has been revoked.",
         ):
             entity, _ = api_key_authentication().authenticate(

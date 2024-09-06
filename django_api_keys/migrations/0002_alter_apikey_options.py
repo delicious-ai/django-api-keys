@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("drf_simple_apikey", "0001_initial"),
+        ("django_api_keys", "0001_initial"),
     ]
 
     operations = [

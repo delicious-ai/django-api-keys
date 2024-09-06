@@ -1,16 +1,15 @@
 import typing
 
 from django.contrib.auth.backends import BaseBackend
+from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest
 from django.utils.timezone import now
 from django.core.exceptions import ObjectDoesNotExist
 
-from rest_framework import exceptions
 
-
-from drf_simple_apikey.crypto import get_crypto
-from drf_simple_apikey.models import APIKey
-from drf_simple_apikey.parser import APIKeyParser
+from django_api_keys.crypto import get_crypto
+from django_api_keys.models import APIKey
+from django_api_keys.parser import APIKeyParser
 
 
 class APIKeyAuthentication(BaseBackend):
@@ -53,20 +52,20 @@ class APIKeyAuthentication(BaseBackend):
         try:
             payload = key_crypto.decrypt(key)
         except ValueError:
-            raise exceptions.AuthenticationFailed("Invalid API Key.")
+            raise PermissionDenied("Invalid API Key.")
 
         if "_pk" not in payload or "_exp" not in payload:
-            raise exceptions.AuthenticationFailed("Invalid API Key.")
+            raise PermissionDenied("Invalid API Key.")
 
         if payload["_exp"] < now().timestamp():
-            raise exceptions.AuthenticationFailed("API Key has already expired.")
+            raise PermissionDenied("API Key has already expired.")
         try:
             api_key = self.model.objects.get(id=payload["_pk"])
         except ObjectDoesNotExist:  # pylint: disable=maybe-no-member
-            raise exceptions.AuthenticationFailed("No entity matching this api key.")
+            raise PermissionDenied("No entity matching this api key.")
 
         if api_key.revoked:
-            raise exceptions.AuthenticationFailed("This API Key has been revoked.")
+            raise PermissionDenied("This API Key has been revoked.")
 
         return api_key.entity, key
 

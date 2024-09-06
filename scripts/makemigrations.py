@@ -1,4 +1,5 @@
 """A stand-alone equivalent of `python manage.py makemigrations`."""
+
 import pathlib
 import sys
 
@@ -9,7 +10,6 @@ root = pathlib.Path(__file__).parent.parent
 sys.path.append(str(root))
 
 if __name__ == "__main__":
-
     from django.conf import settings
 
     settings.configure(
@@ -21,9 +21,9 @@ if __name__ == "__main__":
             "django.contrib.sites",
             "django.contrib.staticfiles",
             "rest_framework",
-            "drf_simple_apikey",
-            "drf_simple_apikey.rotation",
-            "drf_simple_apikey.analytics",
+            "django_api_keys",
+            "django_api_keys.rotation",
+            "django_api_keys.analytics",
             "tests",
         ),
         DATABASES={

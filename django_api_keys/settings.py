@@ -1,31 +1,33 @@
 from datetime import timedelta
-
 from django.conf import settings
 from django.test.signals import setting_changed
 from django.utils.text import format_lazy
 from django.utils.translation import gettext_lazy as _
-from rest_framework.settings import APISettings as _APISettings
 
-USER_SETTINGS = getattr(settings, "DRF_API_KEY", None)
+USER_SETTINGS = getattr(settings, "API_KEY_SETTINGS", None)
 
 DEFAULTS = {
     "FERNET_SECRET": "",
     "ROTATION_FERNET_SECRET": "",
     "API_KEY_LIFETIME": 365,
-    "AUTHENTICATION_KEYWORD_HEADER": "Api-Key",
+    "AUTHENTICATION_KEYWORD_HEADER": "X-Api-Key",
     "ROTATION_PERIOD": timedelta(days=7),
-    "API_KEY_CLASS": "drf_simple_apikey.Apikey",
+    "API_KEY_CLASS": "django_api_keys.Apikey",
 }
 
 REMOVED_SETTINGS = ()
 
 
-class PackageSettings(_APISettings):
+class PackageSettings:
+    def __init__(self, user_settings=None, defaults=None):
+        self._user_settings = self.__check_user_settings(user_settings or {})
+        self.defaults = defaults or DEFAULTS
+
     @property
     def user_settings(self):
-        if not hasattr(self, "_user_settings"):
-            self._user_settings = getattr(settings, "DRF_API_KEY", {})
-        return self._user_settings
+        if not hasattr(self, "_cached_user_settings"):
+            self._cached_user_settings = {**self.defaults, **self._user_settings}
+        return self._cached_user_settings
 
     def __check_user_settings(self, user_settings):
         SETTINGS_DOC = "https://djangorestframework-simple-apikey.readthedocs.io/en/latest/settings.html"
@@ -53,8 +55,9 @@ def reload_api_settings(*args, **kwargs):
 
     setting, value = kwargs["setting"], kwargs["value"]
 
-    if setting == "DRF_API_KEY":
+    if setting == "API_KEY_SETTINGS":
         package_settings = PackageSettings(value, DEFAULTS)
 
 
+# Connect the signal to dynamically update the settings if Django's settings are changed
 setting_changed.connect(reload_api_settings)

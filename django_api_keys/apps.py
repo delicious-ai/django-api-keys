@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class RestSimpleAPIKeyConfig(AppConfig):
-    name = "drf_simple_apikey"
+    name = "django_api_keys"
     verbose_name = "Django REST simple API Key"

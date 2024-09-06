@@ -33,7 +33,7 @@ to:
 
 .. code-block:: python
 
-   import drf_simple_apikey
+   import django_api_keys
 
 Migrating Django Settings
 -------------------------
