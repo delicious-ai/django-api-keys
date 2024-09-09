@@ -39,32 +39,39 @@ class APIKeyAuthentication(BaseBackend):
         and we do not return anything.
         """
 
-        key = self.get_key(request)
+        errors = kwargs.pop("errors", [])
+        try:
+            key = self.get_key(request)
+        except PermissionDenied:
+            errors.append("No API key provided")
+            return None
 
-        return self._authenticate_credentials(request, key)[0]
+        return self._authenticate_credentials(request, key, errors, **kwargs)
 
-    def _authenticate_credentials(self, request, key):
+    def _authenticate_credentials(self, request, key: str, errors: list[str]):
         key_crypto = self.key_crypto
 
         try:
             payload = key_crypto.decrypt(key)
         except ValueError:
-            raise PermissionDenied("Invalid API Key.")
+            errors.append("Invalid API Key")
 
         if "_pk" not in payload or "_exp" not in payload:
-            raise PermissionDenied("Invalid API Key.")
+            errors.append("Invalid API Key")
 
         if payload["_exp"] < now().timestamp():
-            raise PermissionDenied("API Key has already expired.")
+            errors.append("API Key has already expired")
         try:
             api_key = self.model.objects.get(id=payload["_pk"])
-        except ObjectDoesNotExist:  # pylint: disable=maybe-no-member
-            raise PermissionDenied("No entity matching this api key.")
+        except ObjectDoesNotExist:
+            errors.append("No entity matching this api key")
 
         if api_key.revoked:
-            raise PermissionDenied("This API Key has been revoked.")
+            errors.append("This API Key has been revoked")
 
-        return api_key.entity, key
+        if len(errors) > 0:
+            return None
+        return api_key.entity
 
     def authenticate_header(self, request):
         """

@@ -54,6 +54,7 @@ MIDDLEWARE = [
 
 AUTHENTICATION_BACKENDS = [
     "django_api_keys.backends.APIKeyAuthentication",
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
 ROOT_URLCONF = "ApiKey.urls"

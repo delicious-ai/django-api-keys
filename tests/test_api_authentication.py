@@ -64,38 +64,35 @@ class TestApiKeyAuthentication:
 
     def test_authenticate_invalid_request(self, invalid_request):
         entity = None
-        with pytest.raises(
-            PermissionDenied,
-            match=r"No API key provided.",
-        ):
-            entity, _ = api_key_authentication().authenticate(invalid_request)
+        message = "No API key provided"
+        errors = []
+        entity = api_key_authentication().authenticate(invalid_request, errors=errors)
 
         assert entity is None
+        assert errors == [message]
 
     def test_authenticate_invalid_request_with_expired_key(
         self, invalid_request_with_expired_api_key
     ):
         entity = None
-        with pytest.raises(
-            PermissionDenied,
-            match=r"API Key has already expired.",
-        ):
-            entity, _ = api_key_authentication().authenticate(
-                invalid_request_with_expired_api_key
-            )
+        message = "API Key has already expired"
+        errors = []
+        entity = api_key_authentication().authenticate(
+            invalid_request_with_expired_api_key, errors=errors
+        )
 
         assert entity is None
+        assert errors == [message]
 
     def test_authenticate_invalid_request_with_revoked_key(
         self, invalid_request_with_revoked_api_key
     ):
         entity = None
-        with pytest.raises(
-            PermissionDenied,
-            match=r"This API Key has been revoked.",
-        ):
-            entity, _ = api_key_authentication().authenticate(
-                invalid_request_with_revoked_api_key
-            )
+        message = "This API Key has been revoked"
+        errors = []
+        entity = api_key_authentication().authenticate(
+            invalid_request_with_revoked_api_key, errors=errors
+        )
 
         assert entity is None
+        assert errors == [message]

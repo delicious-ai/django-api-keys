@@ -14,10 +14,13 @@ def require_api_key(view_func):
             return JsonResponse({"error": _("API key is missing")}, status=400)
 
         if not hasattr(request, "user") or isinstance(request.user, AnonymousUser):
-            return JsonResponse({"error": _("Entity is not authenticated")}, status=401)
+            raise PermissionDenied("Entity is not authenticated")
 
         if hasattr(request, "user") and not request.user.is_active:
             raise PermissionDenied("Entity associated with API Key is inactive")
+
+        if hasattr(request, "auth_errors") and len(request.auth_errors) > 0:
+            raise PermissionDenied(", ".join(request.auth_errors))
 
         return view_func(request, *args, **kwargs)
 

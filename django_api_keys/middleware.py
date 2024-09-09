@@ -11,7 +11,7 @@ class ApiKeyMiddleware:
             user = authenticate(request=request, errors=errors)
             if user:
                 request.user = request._cached_user = user
-
+            request.auth_errors = errors
         response = self.get_response(request)
 
         return response
