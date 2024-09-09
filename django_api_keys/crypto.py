@@ -2,6 +2,7 @@
 This modules provides the `ApiKeyCrypto` classes that contain
 methods needed to generate, encrypt, and decrypt an API Key.
 """
+
 import json
 from copy import copy
 from datetime import timedelta
@@ -11,7 +12,7 @@ from django.conf import settings
 
 from django.utils.timezone import now
 
-from drf_simple_apikey.settings import package_settings
+from django_api_keys import package_settings
 
 
 class BaseApiCrypto:
@@ -60,11 +61,11 @@ class ApiCrypto(BaseApiCrypto):
 
 
 def get_crypto():
-    if "drf_simple_apikey.rotation" in settings.INSTALLED_APPS:
+    if "django_api_keys.rotation" in settings.INSTALLED_APPS:
         try:
             # Try to import necessary components and initialize the MultiApiCrypto.
             # This might fail if certain conditions aren't met, like missing migrations.
-            from drf_simple_apikey.rotation.utils import get_rotation_status
+            from django_api_keys.rotation.utils import get_rotation_status
             from .mutli_api_crypto import MultiApiCrypto
 
             if get_rotation_status():

@@ -1,6 +1,6 @@
 venv = venv
 bin = ${venv}/bin/
-pysources = drf_simple_apikey/ example/ tests/
+pysources = django_api_keys/ example/ tests/
 
 build:
 	${bin}python -m build

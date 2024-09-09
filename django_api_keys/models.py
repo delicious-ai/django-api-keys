@@ -4,8 +4,8 @@ from datetime import timedelta, datetime
 from django.conf import settings
 from django.db import models
 
-from drf_simple_apikey.crypto import get_crypto
-from drf_simple_apikey.settings import package_settings
+from django_api_keys.crypto import get_crypto
+from django_api_keys import package_settings
 
 
 def _expiry_date():
@@ -86,7 +86,9 @@ class AbstractAPIKey(models.Model):
         verbose_name_plural = "API keys"
 
     def __str__(self):
-        return self.name
+        if self.name:
+            return self.name
+        return self.entity.username
 
 
 class APIKey(AbstractAPIKey):

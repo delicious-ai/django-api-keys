@@ -11,7 +11,8 @@ def pytest_configure():
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",
-        "drf_simple_apikey.analytics.middleware.ApiKeyAnalyticsMiddleware",
+        "django_api_keys.middleware.ApiKeyMiddleware",
+        "django_api_keys.analytics.middleware.ApiKeyAnalyticsMiddleware",
     )
 
     apps = [
@@ -21,14 +22,17 @@ def pytest_configure():
         "django.contrib.sessions",
         "django.contrib.sites",
         "django.contrib.staticfiles",
-        "rest_framework",
-        "drf_simple_apikey",
-        "drf_simple_apikey.analytics",
+        "django_api_keys",
+        "django_api_keys.analytics",
         "tests",
     ]
 
+    AUTHENTICATION_BACKENDS = [
+        "django_api_keys.backends.APIKeyAuthentication",
+    ]
+
     if os.environ.get("TEST_WITH_ROTATION"):
-        apps.append("drf_simple_apikey.rotation")
+        apps.append("django_api_keys.rotation")
 
     settings.configure(
         DEBUG_PROPAGATE_EXCEPTIONS=True,
@@ -48,9 +52,10 @@ def pytest_configure():
         ],
         MIDDLEWARE=MIDDLEWARE,
         MIDDLEWARE_CLASSES=MIDDLEWARE,
+        AUTHENTICATION_BACKENDS=AUTHENTICATION_BACKENDS,
         INSTALLED_APPS=apps,
         PASSWORD_HASHERS=("django.contrib.auth.hashers.MD5PasswordHasher",),
-        DRF_API_KEY={
+        API_KEY_SETTINGS={
             "FERNET_SECRET": "sVjomf7FFy351xRxDeJWFJAZaE2tG3MTuUv92TLFfOA=",
             "ROTATION_FERNET_SECRET": "EqkeOOgvV8bt70vUJiVXloNycn5bt_z1VqyoAi9K6f4=",
         },
@@ -69,7 +74,7 @@ def setup_rotation_config(db):
     from django.conf import settings
 
     """Ensure a RotationConfig object exists for tests."""
-    if "drf_simple_apikey.rotation" in settings.INSTALLED_APPS:
-        from drf_simple_apikey.rotation.models import Rotation
+    if "django_api_keys.rotation" in settings.INSTALLED_APPS:
+        from django_api_keys.rotation.models import Rotation
 
         Rotation.objects.create(is_rotation_enabled=True)

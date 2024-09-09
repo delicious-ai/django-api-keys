@@ -1,7 +1,7 @@
-from drf_simple_apikey.analytics.models import ApiKeyAnalytics
-from drf_simple_apikey.crypto import get_crypto
-from drf_simple_apikey.parser import APIKeyParser
-from drf_simple_apikey.utils import get_key
+from django_api_keys.analytics.models import ApiKeyAnalytics
+from django_api_keys.crypto import get_crypto
+from django_api_keys.parser import APIKeyParser
+from django_api_keys.utils import get_key
 
 
 class ApiKeyAnalyticsMiddleware:

@@ -12,7 +12,7 @@ Some of Django REST Framework Simple API Key's behavior can be customized throug
   DRF_API_KEY = {
        "FERNET_SECRET": "",
        "API_KEY_LIFETIME": 365,
-       "AUTHENTICATION_KEYWORD_HEADER": "Api-Key",
+       "API_KEY_HEADER": "Api-Key",
        "ROTATION_PERIOD": timedelta(days=7),
        "ROTATION_FERNET_SECRET": ""
   }
@@ -33,7 +33,7 @@ Make sure to store it somewhere safe and treat it as you will treat the ``SECRET
 
 Determines the validity period of a generated Api Key. The default value is 365 days. 
 
-``AUTHENTICATION_KEYWORD_HEADER``
+``API_KEY_HEADER``
 ----------------------------
 
 Determines the keyword that should come with every request made to your API. The default value is ``Api-Key`` and it is used in the following format:

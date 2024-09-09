@@ -29,7 +29,6 @@ You will need to add the rotation app ``drf-simple-apikey.rotation`` in the ``IN
 
        INSTALLED_APPS=(
             ...
-            "rest_framework",
             "drf-simple-apikey",
             "drf-simple-apikey.rotation", # added app
         )
