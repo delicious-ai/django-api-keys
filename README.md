@@ -1,31 +1,11 @@
-# Django REST Framework Simple API Key 🔐
+# Django API Keys 🔐
 
-Django REST Framework Simple API Key is a fast and secure API Key authentication plugin for REST API built with [Django Rest Framework](https://www.django-rest-framework.org/).
+Django API Keys is a fork of [Django Rest Framework API Key](https://pypi.org/project/djangorestframework-api-key/), modified to work without rest_framework. Credit to [koladev32](https://github.com/koladev32) and [ederene20](https://github.com/Ederene20) for all of the core functionality.
 
-<div>
-  <a href="https://badge.fury.io/py/drf-simple-apikey">
-      <img src="https://badge.fury.io/py/drf-simple-apikey.svg" alt="Version"/>
-  </a>
-  <a href="https://github.com/koladev32/drf-simple-apikey/actions/workflows/ci-cd.yml">
-      <img src="https://github.com/koladev32/drf-simple-apikey/actions/workflows/ci-cd.yml/badge.svg" alt="Testing"/>
-  </a>
-</div>
-
-For the full documentation, visit [https://djangorestframework-simple-apikey.readthedocs.io/en/latest/](https://djangorestframework-simple-apikey.readthedocs.io/en/latest/).
-
-## Package Renaming Notice
-
-**Notice:** The `djangorestframework-simple-apikey` package is being renamed to `drf-simple-apikey` to improve usability and align with common naming conventions. Please update your installations:
-
-1. Replace the old package:
-   ```bash
-   pip uninstall djangorestframework-simple-apikey
-   pip install drf-simple-apikey
-For the full documentation, visit [https://djangorestframework-simple-apikey.readthedocs.io/en/latest/](https://djangorestframework-simple-apikey.readthedocs.io/en/latest/).
 
 ## Introduction
 
-Django REST Simple Api Key is a package built upon Django, Django REST Framework, and the fernet cryptography module to generate, encrypt, and decrypt API keys. It provides fast, secure and customizable API Key authentication.
+Django API Keys is a package built upon Django and the fernet cryptography module to generate, encrypt, and decrypt API keys. It provides fast, secure and customizable API Key authentication.
 
 ### Benefits
 
@@ -126,9 +106,6 @@ See [CHANGELOG.md](https://github.com/koladev32/drf-simple-apikey/blob/main/CHAN
 Thank you for your interest in contributing to the project! Here's a guide to help you get started:
 
 - **Setup Development Environment:**  
-  ```bash
-  git clone https://github.com/koladev32/drf-simple-apikey.git
-  ```  
   Use the command below to set up your environment:
   ```
   make install

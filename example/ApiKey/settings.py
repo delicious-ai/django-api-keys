@@ -47,8 +47,13 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django_api_keys.middleware.ApiKeyMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+AUTHENTICATION_BACKENDS = [
+    "django_api_keys.backends.APIKeyAuthentication",
 ]
 
 ROOT_URLCONF = "ApiKey.urls"
@@ -125,4 +130,6 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-DRF_API_KEY = {"FERNET_SECRET": "foo"}
+API_KEY_SETTINGS = {
+    "FERNET_SECRET": "t7RPRa63byV8QQFUbHkpeX2s1955tJ2QNLCHq_G0wH8=",
+}

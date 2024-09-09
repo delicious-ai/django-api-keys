@@ -37,14 +37,11 @@ class APIKeyAuthentication(BaseBackend):
         authentication is successful.
         If neither case is met, that means there's an error,
         and we do not return anything.
-        We simply raise the `AuthenticationFailed`
-        exception and let Django REST Framework
-        handle the rest.
         """
 
         key = self.get_key(request)
 
-        return self._authenticate_credentials(request, key)
+        return self._authenticate_credentials(request, key)[0]
 
     def _authenticate_credentials(self, request, key):
         key_crypto = self.key_crypto

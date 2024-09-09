@@ -2,8 +2,7 @@ import pytest
 
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
-
-from rest_framework.test import APIRequestFactory
+from django.test import RequestFactory
 
 from django_api_keys import package_settings
 
@@ -15,42 +14,34 @@ pytestmark = pytest.mark.django_db
 
 @pytest.fixture
 def invalid_request(user):
-    factory = APIRequestFactory()
-
+    factory = RequestFactory()
     return factory.get("/test-request/")
 
 
 @pytest.fixture
 def invalid_request_with_expired_api_key(user, expired_api_key):
-    factory = APIRequestFactory()
+    factory = RequestFactory()
     _, key = expired_api_key
 
     return factory.get(
         "/test-request/",
-        HTTP_AUTHORIZATION=f"{package_settings.AUTHENTICATION_KEYWORD_HEADER} {key}",
+        HTTP_X_API_KEY=key,
     )
 
 
 @pytest.fixture
 def invalid_request_with_revoked_api_key(user, revoked_api_key):
-    factory = APIRequestFactory()
+    factory = RequestFactory()
     _, key = revoked_api_key
 
-    return factory.get(
-        "/test-request/",
-        HTTP_AUTHORIZATION=f"{package_settings.AUTHENTICATION_KEYWORD_HEADER} {key}",
-    )
+    return factory.get("/test-request/", HTTP_X_API_KEY=key)
 
 
 @pytest.fixture
 def valid_request(user, active_api_key):
-    factory = APIRequestFactory()
-
+    factory = RequestFactory()
     _, key = active_api_key
-    return factory.get(
-        "/test-request/",
-        HTTP_AUTHORIZATION=f"{package_settings.AUTHENTICATION_KEYWORD_HEADER} {key}",
-    )
+    return factory.get("/test-request/", HTTP_X_API_KEY=key)
 
 
 def api_key_authentication():
@@ -68,8 +59,7 @@ class TestApiKeyAuthentication:
         assert type(key) is str
 
     def test_authenticate_valid_request(self, valid_request):
-        entity, _ = api_key_authentication().authenticate(valid_request)
-
+        entity = api_key_authentication().authenticate(valid_request)
         assert isinstance(entity, User)
 
     def test_authenticate_invalid_request(self, invalid_request):

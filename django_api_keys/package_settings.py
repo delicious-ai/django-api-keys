@@ -2,10 +2,10 @@ from datetime import timedelta
 from django.conf import settings
 
 DEFAULTS = {
-    "FERNET_SECRET": "d-16UOyaBDFFmsD3k6JGfyBO8ccctQgcthul7OGIfx4=",
+    "FERNET_SECRET": "",
     "ROTATION_FERNET_SECRET": "",
     "API_KEY_LIFETIME": 365,
-    "AUTHENTICATION_KEYWORD_HEADER": "X-Api-Key",
+    "API_KEY_HEADER": "HTTP_X_API_KEY",
     "ROTATION_PERIOD": timedelta(days=7),
     "API_KEY_CLASS": "django_api_keys.Apikey",
 }
@@ -20,6 +20,6 @@ def resolved_value(key: str):
 FERNET_SECRET = resolved_value("FERNET_SECRET")
 ROTATION_FERNET_SECRET = resolved_value("ROTATION_FERNET_SECRET")
 API_KEY_LIFETIME = resolved_value("API_KEY_LIFETIME")
-AUTHENTICATION_KEYWORD_HEADER = resolved_value("AUTHENTICATION_KEYWORD_HEADER")
+API_KEY_HEADER = resolved_value("API_KEY_HEADER")
 ROTATION_PERIOD = resolved_value("ROTATION_PERIOD")
 API_KEY_CLASS = resolved_value("API_KEY_CLASS")

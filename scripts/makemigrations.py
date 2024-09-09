@@ -20,7 +20,6 @@ if __name__ == "__main__":
             "django.contrib.sessions",
             "django.contrib.sites",
             "django.contrib.staticfiles",
-            "rest_framework",
             "django_api_keys",
             "django_api_keys.rotation",
             "django_api_keys.analytics",

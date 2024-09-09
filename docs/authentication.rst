@@ -31,14 +31,14 @@ In your view, you can add the ``APIKeyAuthentication`` class to the
 By default, we check the ``authorization`` header for a value with a
 similar format 👉 ``Api-Key API_KEY_VALUE``.
 
-The ``Api-Key`` is by default ``AUTHENTICATION_KEYWORD_HEADER`` which
+The ``Api-Key`` is by default ``API_KEY_HEADER`` which
 you can modify in the ``settings.py`` file of your Django project.
 
 .. code:: python
 
    DRF_API_KEY = {
        ...
-       "AUTHENTICATION_KEYWORD_HEADER": "YOUR_CUSTOM_VALUE",
+       "API_KEY_HEADER": "YOUR_CUSTOM_VALUE",
    }
 
 Feel free to read the code of the authentication class at

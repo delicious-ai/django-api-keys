@@ -35,7 +35,7 @@ Why should you use this package for your API Key authentication?
    permissions classes can be rewritten and fit your needs. We do our
    best to extend Django classes and methods, so you can easily extend
    our classes and methods.😉 Your Api Key authentication settings are
-   kept in a single configuration dictionary named ``DRF_API_KEY`` in
+   kept in a single configuration dictionary named ``API_KEY_SETTINGS`` in
    the ``settings.py`` file of your Django project. It can be customized
    to fit your project needs.
 
@@ -61,7 +61,7 @@ file:
      "drf-simple-apikey",
    ]
 
-3- Add the ``FERNET_KEY`` setting in your ``DRF_API_KEY``
+3- Add the ``FERNET_KEY`` setting in your ``API_KEY_SETTINGS``
 configuration dictionary. You can easily generate a fernet key using the
 ``python manage.py generate_fernet_key`` command. Keep in mind that the
 fernet key plays a huge role in the api key authentication system.
