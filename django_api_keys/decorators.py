@@ -9,9 +9,9 @@ from django_api_keys.package_settings import API_KEY_HEADER
 def require_api_key(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
-        api_key = request.headers.get(API_KEY_HEADER)
+        api_key = request.META.get(API_KEY_HEADER)
         if not api_key:
-            return JsonResponse({"error": _("API key is missing")}, status=400)
+            raise PermissionDenied("API key is missing")
 
         if not hasattr(request, "user") or isinstance(request.user, AnonymousUser):
             raise PermissionDenied("Entity is not authenticated")
