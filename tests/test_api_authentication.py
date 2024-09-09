@@ -45,13 +45,13 @@ def valid_request(user, active_api_key):
 
 
 def api_key_authentication():
-    from django_api_keys.backends import APIKeyAuthentication
+    from django_api_keys.backends import APIKeyAuthenticationBackend
 
-    return APIKeyAuthentication()
+    return APIKeyAuthenticationBackend()
 
 
 @pytest.mark.django_db
-class TestApiKeyAuthentication:
+class TestAPIKeyAuthenticationBackend:
     pytestmark = pytest.mark.django_db
 
     def test_get_key(self, valid_request):

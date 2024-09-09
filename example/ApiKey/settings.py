@@ -53,7 +53,7 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    "django_api_keys.backends.APIKeyAuthentication",
+    "django_api_keys.backends.APIKeyAuthenticationBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 

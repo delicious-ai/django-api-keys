@@ -12,7 +12,7 @@ from django_api_keys.models import APIKey
 from django_api_keys.parser import APIKeyParser
 
 
-class APIKeyAuthentication(BaseBackend):
+class APIKeyAuthenticationBackend(BaseBackend):
     model = APIKey
     key_parser = APIKeyParser()
 

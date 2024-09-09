@@ -28,7 +28,7 @@ def pytest_configure():
     ]
 
     AUTHENTICATION_BACKENDS = [
-        "django_api_keys.backends.APIKeyAuthentication",
+        "django_api_keys.backends.APIKeyAuthenticationBackend",
     ]
 
     if os.environ.get("TEST_WITH_ROTATION"):
